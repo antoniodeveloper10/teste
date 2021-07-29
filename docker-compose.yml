@@ -3,6 +3,8 @@ version: "3.8"
 services:
   futbol:
     image: developer10/api-futiuber:v8
+    deploy:
+      replicas: 5
     environment:
       NOMEUSER: antonio
       EMAILUSER: antonio@gmail.com
@@ -20,6 +22,15 @@ services:
       - 5432:5432 
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+    - "8888:8080"
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]        
 
 volumes:
   postgres_data:
