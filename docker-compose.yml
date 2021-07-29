@@ -5,6 +5,8 @@ services:
     image: developer10/api-futiuber:v8
     deploy:
       replicas: 5
+      placement:
+        constraints: [node.role == manager]
     environment:
       NOMEUSER: antonio
       EMAILUSER: antonio@gmail.com
